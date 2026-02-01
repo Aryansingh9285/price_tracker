@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { deleteProduct } from "@/app/action";
-//import PriceChart from "./PriceChart";
 import {
   Card,
   CardContent,
@@ -30,6 +29,7 @@ export default function ProductCards({ product }) {
 
     setDeleting(true);
     await deleteProduct(product.id);
+    window.location.reload(); // refresh UI after delete
   };
 
   return (
@@ -37,7 +37,6 @@ export default function ProductCards({ product }) {
       <CardHeader className="pb-3">
         <div className="flex gap-4">
           {product.image_url && (
-            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={product.image_url}
               alt={product.name}
@@ -71,7 +70,7 @@ export default function ProductCards({ product }) {
             onClick={() => setShowChart(!showChart)}
             className="gap-1"
           >
-            {showChart ? ( 
+            {showChart ? (
               <>
                 <ChevronUp className="w-4 h-4" />
                 Hide Chart
@@ -85,7 +84,7 @@ export default function ProductCards({ product }) {
           </Button>
 
           <Button variant="outline" size="sm" asChild className="gap-1">
-            <Link href={product.url} target="_blank" rel="noopener noreferrer">
+            <Link href={product.url} target="_blank">
               <ExternalLink className="w-4 h-4" />
               View Product
             </Link>
@@ -96,7 +95,7 @@ export default function ProductCards({ product }) {
             size="sm"
             onClick={handleDelete}
             disabled={deleting}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50 gap-1"
+            className="text-red-600 hover:bg-red-50 gap-1"
           >
             <Trash2 className="w-4 h-4" />
             Remove
@@ -112,4 +111,3 @@ export default function ProductCards({ product }) {
     </Card>
   );
 }
- 
